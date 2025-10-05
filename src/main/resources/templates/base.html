@@ -1,13 +1,27 @@
-<!-- <div th:fragment="parent"> -->
-<!-- <div th:fragment="parent(x,y)"> -->
-<div th:fragment="parent(content)">
-    <h1>
-        this is parent fragment
-    </h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, nam.</p>
-    <!-- <h1>value of x is <span th:text="${x}"></span></h1>
-    <h1>value of y is <span th:text="${y}"></span></h1> -->
+<!-- make it as a fragment  -->
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title,script)" xmlns:th="http://www.thymeleaf.org">
 
-    <div th:replace="${content}"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-replace="${title}">SCM</title>
+    <link rel="stylesheet" th:href="@{/css/output.css}">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+</head>
 
-</div>
+<body>
+<!-- common header  -->
+
+    <!-- main content goes here... -->
+    <section data-th-replace="${content}"></section>
+
+<!-- common footer  -->
+
+
+    <!-- flow bite content goes here... -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <th:block data-th-replace="${script}"></th:block>
+</body>
+
+</html>

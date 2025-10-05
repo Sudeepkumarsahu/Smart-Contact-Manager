@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- import content from parent fragment  -->
+    <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">  <!-- using ~{::script} we can pass all script tag-->
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>About Page</title>
 </head>
-
 <body>
-    <h1>this is about page</h1>
-    <hr>
-    <!-- using fragments -->
-     <!-- there are two way 1. use th:insert and 2. use th:replace  -->
-    <!-- here div is a host tag and inside div, 'base' is fileName and 'parent' is fragment name -->
-    <!-- <div th:insert="~{base :: parent}"></div> -->
-    <!-- <div th:replace="~{base :: parent}"></div> -->
-
-
-    <!-- we can also pass multiple arguments to the fragment -->
-    <!-- <div th:insert="~{base :: parent('one','two')}"></div> -->
-
-
-   <!-- we can also pass dynamic content or html to the fragment -->
-    <!-- <div th:insert="~{base :: parent(~{::section})}"> -->
-    <div th:insert="~{base :: parent(~{::#main_content})}">
-        <section id="main_content">
-            <h2>This is dynamic content</h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore iste magni quas!</p>
-            <button>click on dynamic content</button>
-        </section>
-        
+    <div id="content">
+        <h1>welcome to about page</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, dicta?</p>
     </div>
+    <script>
+        console.log("about page script 1");
+    </script>
+    <script>
+        console.log("about page script 2");
+    </script>
 </body>
-
 </html>
