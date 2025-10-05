@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" th:href="@{/css/output.css}">
+    <!-- <link rel="stylesheet" href="/static/css/output.css"> -->
+</head>
+<body>
+    <div class="w-1/2 p-4 flex flex-col items-center justify-center space-y-3 mx-auto mt-4 bg-gray-200">
+        
+        <h1 class="text-2xl font-bold" data-th-text="${name}">Welcome to homepage</h1> <!-- Thymeleaf expression for the page title -->
+        <p class="text-xl text-gray-700">youtube channel: <span th:text="${youtubechannel}"></span></p>
+        <a th:href="${google}">click here to open</a>
+
+        <p class="text-gray-500">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, autem? Maxime temporibus repellat amet voluptatibus eligendi deleniti, accusamus nesciunt quo necessitatibus, nostrum autem labore. Fugiat ab soluta, enim itaque unde nobis nesciunt accusamus assumenda voluptatem placeat iste nam neque. Quisquam quod fugiat repellendus ex commodi in nobis praesentium libero magnam!</p>
+        <div>
+
+            <button class="cursor-pointer px-3 py-2 rounded bg-blue-700 text-white hover:bg-blue-600">Click here</button>
+        </div>
+
+    </div>
+
+    <!-- flow bite content goes here... -->
+     
+
+<!-- <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Read more
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </a>
+</div> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+</body>
+</html>
