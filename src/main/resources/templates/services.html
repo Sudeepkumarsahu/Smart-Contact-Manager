@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <!-- import content from parent fragment  -->
-<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">  <!-- use  ~{} if not present  -->
-<head>
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{})}">
+  <!-- use  ~{} if not present  -->
+  <head>
     <title>Service Page</title>
-</head>
-<body>
+  </head>
+  <body>
     <section id="content">
-        <h2>This is dynamic content</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore iste magni quas!</p>
+      <h2>This is dynamic content</h2>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore iste
+        magni quas!
+      </p>
     </section>
     <script>
-        console.log("service page script executed");
-        
+      console.log("service page script executed");
     </script>
-</body>
+  </body>
 </html>

@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <!-- import content from parent fragment  -->
-    <html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">  <!-- using ~{::script} we can pass all script tag-->
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+  <!-- using ~{::script} we can pass all script tag-->
 
-<head>
+  <head>
     <title>Home Page</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="content">
-        <h1>welcome to home page</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, dicta?</p>
+      <h1>welcome to home page</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam,
+        dicta?
+      </p>
     </div>
     <script>
-        console.log("home page script 1");
+      console.log("home page script 1");
     </script>
-
-</body>
+  </body>
 </html>

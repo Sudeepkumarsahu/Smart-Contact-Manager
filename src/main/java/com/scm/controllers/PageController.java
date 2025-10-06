@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller // Controller annotation to mark this class as a controller
 public class PageController {
@@ -32,5 +34,19 @@ public class PageController {
         System.out.println("Services page loading. Param: " + param);
         return "services";
     }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return new String("contact");
+    }
+    @GetMapping("/login")
+    public String login() {
+        return new String("login");
+    }
+    @GetMapping("/register")
+    public String register() {
+        return new String("register");
+    }
+    
 
 }
