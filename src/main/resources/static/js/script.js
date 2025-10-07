@@ -34,6 +34,7 @@ function getTheme() {
 
 function changePageTheme(theme, oldTheme) {
     setTheme(theme);
+console.log(theme);
 
     // Remove previous theme and add new one
     document.querySelector('html').classList.remove(oldTheme);
