@@ -1,4 +1,4 @@
-package entities;
+package com.scm.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
@@ -33,6 +35,7 @@ public class User {
     @Column( nullable = false, unique = true)  // unique constraint annotation for email column
     private String email;
     private String password;
+    private String phoneNumber;
     // @Column(length = 10000)  // not working beacause of SQL length limit
     @Lob   //for storing large text columns
     @Column(columnDefinition = "TEXT")
@@ -46,6 +49,7 @@ public class User {
     private boolean phoneVarified = false;
 
     // self,google, facebook, linkedin, twitter, github, stackoverflow, etc.
+    @Enumerated(value = EnumType.STRING)
     private Providers provider = Providers.SELF;
     private String providerUserId;
 
