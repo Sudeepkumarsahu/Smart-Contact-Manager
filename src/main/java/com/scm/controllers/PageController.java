@@ -19,12 +19,24 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller // Controller annotation to mark this class as a controller
 public class PageController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
+    public String index(){
+        return "redirect:/home";
+    }
 
     @RequestMapping("/home") // RequestMapping annotation to map HTTP GET requests to this method
     public String home(Model model) {
@@ -59,7 +71,7 @@ public class PageController {
     public String login() {
         return new String("login");
     }
-
+    
     @GetMapping("/register")
     public String register(Model model) {
         UserForm userForm = new UserForm();
