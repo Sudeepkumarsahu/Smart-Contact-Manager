@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>this is user dashboard page</h1>
-    <a data-th-href="@{'/logout'}">Logout</a>
-</body>
+<!-- import content from parent fragment  -->
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+  <!-- using ~{::script} we can pass all script tag-->
+
+  <head>
+    <title th:text="${loggedInUser.name}+' | Dashboard'">Dashboard Page</title>
+  </head>
+  <body>
+    <div id="content">
+<!-- sidebar  -->
+   <!-- if user logged in : sidebar  -->
+    <div th:if="${loggedInUser}">
+      <div th:replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+
+
+
+      <div style="height: 1000px" class="sm:pl-64 pt-16">
+        <h1 class="text-5xl">welcome to Dashboard page</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam,
+          dicta?
+        </p>
+      </div>
+    </div>
+    <script>
+      console.log("this is Dashboard page");
+    </script>
+  </body>
 </html>

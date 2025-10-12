@@ -26,22 +26,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
-    // user create and login using java code with in memory service
-    // @Bean
-    // public UserDetailsService userDetailsService(){
-    // UserDetails user1 = User
-    // .withUsername("admin123")
-    // .password("{noop}123") // {noop} = no password encoder
-    // .roles("ADMIN", "USER")
-    // .build();
-    // UserDetails user2 = User
-    // .withUsername("sudeep")
-    // .password("{noop}111")
-    // .roles("USER")
-    // .build();
-    // return new InMemoryUserDetailsManager(user1, user2);
-    // }
-
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
@@ -76,41 +60,45 @@ public class SecurityConfig {
         // agar hame kuchh bhi change karna hua to ham yaha aayenge : form login se
         // related
         // httpSecurity.formLogin(Customizer.withDefaults()); //used for default
-        httpSecurity.formLogin(formLogin->{
-           formLogin.loginPage("/login")
-           .loginProcessingUrl("/authenticate")
-           .successForwardUrl("/user/dashboard")
-        //    .failureForwardUrl("/login?error=true") // if use then postmapping is needed in controller for login page
-           .usernameParameter("email") //username
-           .passwordParameter("password");
-        //    .failureHandler(new AuthenticationFailureHandler() {
-        //     @Override
-        //     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-        //             AuthenticationException exception) throws IOException, ServletException {
-        //         // TODO Auto-generated method stub
-        //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationFailure'");
-        //     }           
-        //    }); 
-        //    formLogin.successHandler(new AuthenticationSuccessHandler() {
-        //     @Override
-        //     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-        //             Authentication authentication) throws IOException, ServletException {
-        //         // TODO Auto-generated method stub
-        //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationSuccess'");
-        //     }
-        //    });
+        httpSecurity.formLogin(formLogin -> {
+            formLogin.loginPage("/login")
+                    .loginProcessingUrl("/authenticate")
+                    .successForwardUrl("/user/profile")
+                    // .failureForwardUrl("/login?error=true") // if use then postmapping is needed
+                    // in controller for login page
+                    .usernameParameter("email") // username
+                    .passwordParameter("password");
+            // .failureHandler(new AuthenticationFailureHandler() {
+            // @Override
+            // public void onAuthenticationFailure(HttpServletRequest request,
+            // HttpServletResponse response,
+            // AuthenticationException exception) throws IOException, ServletException {
+            // // TODO Auto-generated method stub
+            // throw new UnsupportedOperationException("Unimplemented method
+            // 'onAuthenticationFailure'");
+            // }
+            // });
+            // formLogin.successHandler(new AuthenticationSuccessHandler() {
+            // @Override
+            // public void onAuthenticationSuccess(HttpServletRequest request,
+            // HttpServletResponse response,
+            // Authentication authentication) throws IOException, ServletException {
+            // // TODO Auto-generated method stub
+            // throw new UnsupportedOperationException("Unimplemented method
+            // 'onAuthenticationSuccess'");
+            // }
+            // });
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.logout(logoutForm->{
-            logoutForm.logoutUrl("/logout");
-            logoutForm.logoutSuccessUrl("/login?logout=true");
-        });
-
-        //oauth configuration
-        httpSecurity.oauth2Login(oauth->{
+        // oauth configuration
+        httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler);
+        });
+        httpSecurity.logout(logoutForm -> {
+            logoutForm.logoutUrl("/logout");
+            logoutForm.logoutSuccessUrl("/login?logout=true");
         });
         return httpSecurity.build();
     }
