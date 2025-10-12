@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @Controller // Controller annotation to mark this class as a controller
 public class PageController {
 
@@ -33,8 +32,8 @@ public class PageController {
     public String getMethodName(@RequestParam String param) {
         return new String();
     }
-    
-    public String index(){
+
+    public String index() {
         return "redirect:/home";
     }
 
@@ -67,12 +66,12 @@ public class PageController {
         return new String("contact");
     }
 
-    //this is showing login page
+    // this is showing login page
     @GetMapping("/login")
     public String login() {
         return new String("login");
     }
-    
+
     // registration page
     @GetMapping("/register")
     public String register(Model model) {
@@ -86,13 +85,14 @@ public class PageController {
 
     // processing register form data
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegisterForm(@Valid @ModelAttribute UserForm userForm,BindingResult rBindingResult, HttpSession session) {
+    public String processRegisterForm(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
+            HttpSession session) {
         System.out.println("processing registration");
         // fetch form data
         // UserForm
         System.out.println(userForm);
         // validate form data
-        if(rBindingResult.hasErrors()){
+        if (rBindingResult.hasErrors()) {
             return "register";
         }
         // sava data to database

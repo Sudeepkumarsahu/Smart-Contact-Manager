@@ -18,7 +18,7 @@ public class Helper {
             String userName ="";
 
             if (clientId.equalsIgnoreCase("google")) {
-                // signin with google
+                // signin with google 
                 System.out.println("Getting email from google");
               userName=  oauth2user.getAttribute("email").toString();
             } else if (clientId.equalsIgnoreCase("github")) {
