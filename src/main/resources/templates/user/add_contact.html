@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!-- import content from parent fragment  -->
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+  <!-- using ~{::script} we can pass all script tag-->
+
+  <head>
+    <title>Add Contact</title>
+  </head>
+  <body>
+    <div id="content">
+      <!-- sidebar  -->
+      <!-- if user logged in : sidebar  -->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+      </div>
+      <div style="height: 1000px" class="sm:pl-64 pt-16">
+        <div class="grid grid-cols-12 grid-rows-1">
+          <div class="col-span-3"></div>
+          <div
+            class="col-span-6 col-start-4 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+          >
+          <div 
+          th:replace="message :: messagebox">
+
+          </div>
+
+
+
+            <h1 class="text-2xl font-semibold">Add new contact</h1>
+            <p class="text-gray-500">
+              This contact will be stored on cloud, you can direct email this
+              client from scm
+            </p>
+
+            <form
+              action=""
+              class="mt-5"
+              th:action="@{'/user/contacts/add'}"
+              th:object="${contactForm}"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <!-- name form -->
+              <div class="mb-3">
+                <label
+                  for="helper-text"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Your Name</label
+                >
+                <input
+                  th:field="*{name}"
+                  type="text"
+                  aria-describedby="helper-text-explanation"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="name"
+                />
+
+                <p class="text-red-500"
+                th:if="${#fields.hasErrors('name')}"
+                data-th-errors="*{name}"
+                >invalid name</p>
+              </div>
+
+              <!-- email form -->
+              <div class="mb-3">
+                <label
+                  for="helper-text"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Your Email</label
+                >
+                <input
+                  type="email"
+                  th:field="*{email}"
+                  aria-describedby="helper-text-explanation"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="enter your email"
+                />
+
+                 <p class="text-red-500"
+                th:if="${#fields.hasErrors('email')}"
+                data-th-errors="*{email}"
+                >invalid name</p>
+              </div>
+
+              <!-- phone form -->
+              <div class="mb-3">
+                <label
+                  for="helper-text"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Contact Phone
+                </label>
+                <input
+                  type="text"
+                  th:field="*{phone}"
+                  aria-describedby="helper-text-explanation"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="enter your phone number"
+                />
+                 <p class="text-red-500"
+                th:if="${#fields.hasErrors('phone')}"
+                data-th-errors="*{phone}"
+                >invalid name</p>
+              </div>
+
+              <!-- address  -->
+              <div class="mb-3">
+                <label
+                  for="message"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Contact Address</label
+                >
+                <textarea
+                  th:field="*{address}"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Write your address here..."
+                ></textarea>
+                 <p class="text-red-500"
+                th:if="${#fields.hasErrors('address')}"
+                data-th-errors="*{address}"
+                >invalid name</p>
+              </div>
+
+              <!-- description  -->
+              <div class="mb-3">
+                <label
+                  for="message"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Description</label
+                >
+                <textarea
+                  th:field="*{description}"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Write your description here..."
+                ></textarea>
+              </div>
+
+              <!-- social links  -->
+              <label
+                for="message"
+                class="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
+                >Social Links</label
+              >
+              <div class="flex gap-3 mb-3">
+                <div class="w-full">
+                  <!-- website link -->
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      th:field="*{websiteLink}"
+                      aria-describedby="helper-text-explanation"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="http://sudeep.com"
+                    />
+                  </div>
+                </div>
+                <div class="w-full">
+                  <!-- linkedin link -->
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      th:field="*{linkedInLink}"
+                      aria-describedby="helper-text-explanation"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="http://sudeep.com"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- contact image field  -->
+              <div class="mb-3">
+                <label
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  for="file_input"
+                  >Contact image</label
+                >
+                <input
+                id="image_file_input"
+th:field="*{contactImage}"
+                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  type="file"
+                />
+
+                <img 
+                class="max-h-52 mx-auto rounded-lg shadow m-3"
+                src=""
+                 id="upload_image_preview"
+                  alt="">
+              </div>
+
+              <!-- favorite one  -->
+              <div class="flex items-center mb-3">
+                <input
+                  th:field="*{favorite}"
+                  type="checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  for="default-checkbox"
+                  class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >is this contact is your favorite one ?</label
+                >
+              </div>
+
+              <div class="button-container text-center">
+                <button
+                  type="submit"
+                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  Add Contact
+                </button>
+                <button
+                  type="reset"
+                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script th:src="@{'/js/admin.js'}"></script>
+    <script>
+      console.log("this is Dashboard page");
+    </script>
+  </body>
+</html>

@@ -11,8 +11,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Contact {
     @Id
     private String contactId;
@@ -27,11 +35,13 @@ public class Contact {
     private boolean favorite = false;
     private String websiteLink;
     private String linkedInLink;
+
+    private String cloudinaryImagePublicId;
     // private List<String> socialMediaLinks = new ArrayList<>();
     @ManyToOne
     private User user; // User who created this contact
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)  
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SocialLink> links = new ArrayList<>();
 
 }
