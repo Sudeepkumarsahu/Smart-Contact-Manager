@@ -22,12 +22,7 @@
           <div
             class="col-span-6 col-start-4 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
-          <div 
-          th:replace="message :: messagebox">
-
-          </div>
-
-
+            <div th:replace="message :: messagebox"></div>
 
             <h1 class="text-2xl font-semibold">Add new contact</h1>
             <p class="text-gray-500">
@@ -58,10 +53,13 @@
                   placeholder="name"
                 />
 
-                <p class="text-red-500"
-                th:if="${#fields.hasErrors('name')}"
-                data-th-errors="*{name}"
-                >invalid name</p>
+                <p
+                  class="text-red-500"
+                  th:if="${#fields.hasErrors('name')}"
+                  data-th-errors="*{name}"
+                >
+                  invalid name
+                </p>
               </div>
 
               <!-- email form -->
@@ -79,10 +77,13 @@
                   placeholder="enter your email"
                 />
 
-                 <p class="text-red-500"
-                th:if="${#fields.hasErrors('email')}"
-                data-th-errors="*{email}"
-                >invalid name</p>
+                <p
+                  class="text-red-500"
+                  th:if="${#fields.hasErrors('email')}"
+                  data-th-errors="*{email}"
+                >
+                  invalid name
+                </p>
               </div>
 
               <!-- phone form -->
@@ -99,10 +100,13 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="enter your phone number"
                 />
-                 <p class="text-red-500"
-                th:if="${#fields.hasErrors('phone')}"
-                data-th-errors="*{phone}"
-                >invalid name</p>
+                <p
+                  class="text-red-500"
+                  th:if="${#fields.hasErrors('phone')}"
+                  data-th-errors="*{phone}"
+                >
+                  invalid name
+                </p>
               </div>
 
               <!-- address  -->
@@ -118,10 +122,13 @@
                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write your address here..."
                 ></textarea>
-                 <p class="text-red-500"
-                th:if="${#fields.hasErrors('address')}"
-                data-th-errors="*{address}"
-                >invalid name</p>
+                <p
+                  class="text-red-500"
+                  th:if="${#fields.hasErrors('address')}"
+                  data-th-errors="*{address}"
+                >
+                  invalid name
+                </p>
               </div>
 
               <!-- description  -->
@@ -180,17 +187,24 @@
                   >Contact image</label
                 >
                 <input
-                id="image_file_input"
-th:field="*{contactImage}"
-                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  id="image_file_input"
+                  th:field="*{contactImage}"
+                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   type="file"
                 />
-
-                <img 
-                class="max-h-52 mx-auto rounded-lg shadow m-3"
-                src=""
-                 id="upload_image_preview"
-                  alt="">
+                <p
+                  class="text-red-500"
+                  th:if="${#fields.hasErrors('contactImage')}"
+                  data-th-errors="*{contactImage}"
+                >
+                  invalid name
+                </p>
+                <img
+                  class="max-h-52 mx-auto rounded-lg shadow m-3"
+                  src=""
+                  id="upload_image_preview"
+                  alt=""
+                />
               </div>
 
               <!-- favorite one  -->
