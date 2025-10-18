@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.scm.entities.Contact;
+import com.scm.entities.User;
 import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repositories.ContactRepo;
 import com.scm.services.ContactService;
@@ -64,6 +65,11 @@ public class ContactServiceImpl implements ContactService {
     public List<Contact> search(String name, String email, String phoneNumber) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public List<Contact> getByUser(User user) {
+        return contactRepo.findByUser(user);
     }
 
 }

@@ -3,6 +3,7 @@ package com.scm.controllers;
 import static java.lang.System.err;
 import static java.lang.System.out;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/user/contacts")
@@ -109,5 +111,19 @@ public class ContactController {
         );
 
         return "redirect:/user/contacts/add";
+    }
+
+    // view contacts
+    @RequestMapping
+    public String viewContacts(Model model, Authentication authentication) {
+
+        // load all the user contacts
+
+        String userName = Helper.getEmailOfloggedInUser(authentication);
+        User user = userService.getUserByEmail(userName);
+
+        List<Contact> contacts = contactService.getByUser(user);
+        model.addAttribute("contacts", contacts);
+        return "user/contacts";
     }
 }
