@@ -7,7 +7,7 @@
   <!-- using ~{::script} we can pass all script tag-->
 
   <head>
-    <title>All Your Contacts</title>
+    <title>Search Page</title>
   </head>
   <body>
     <div id="content">
@@ -17,11 +17,11 @@
         <div th:replace="~{user/sidebar :: sidebar}"></div>
       </div>
 
-      <div class="sm:pl-64 pt-16">
-        <h1 class="text-5xl text-center">All Your Contacts</h1>
-        <p class="text-center">List of all Contacts...</p>
+      <div style="height: 1000px" class="sm:pl-64 pt-16 text-center">
+        <h1 class="text-5xl">welcome to Search page</h1>
+        <p th:text="${pageContact.totalElements}+' results found'"></p>
 
-        <div class="contacts_container">
+        <div class="contacts_container p-5">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <form
               th:object="${contactSearchForm}"
@@ -34,6 +34,7 @@
                 <div>
                   <select
                     th:field="*{field}"
+                    name="field"
                     id="countries_disabled"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
@@ -147,7 +148,7 @@
                 <ul class="inline-flex -space-x-px text-base h-10">
                   <li th:unless="${pageContact.first}">
                     <a
-                      th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number-1}}"
+                      th:href="@{'/user/contacts/search?size='+${pageSize}+'&page='+${pageContact.number-1}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                       class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                       >Previous</a
                     >
@@ -157,7 +158,7 @@
                   >
                     <a
                       th:classappend="${index == pageContact.number} ? ' bg-blue-50 dark:bg-gray-700' : ' bg-white dark:bg-gray-800'"
-                      th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${index}}"
+                      th:href="@{'/user/contacts/search?size='+${pageSize}+'&page='+${index}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                       class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                     >
                       <span th:text="${index+1}"></span
@@ -165,7 +166,7 @@
                   </li>
                   <li th:unless="${pageContact.last}">
                     <a
-                      th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number+1}}"
+                      th:href="@{'/user/contacts/search?size='+${pageSize}+'&page='+${pageContact.number+1}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                       class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                       >Next</a
                     >
@@ -184,7 +185,7 @@
       </div>
     </div>
     <script>
-      console.log("this is Dashboard page");
+      console.log("this is search page");
     </script>
   </body>
 </html>

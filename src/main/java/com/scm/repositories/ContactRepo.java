@@ -22,4 +22,15 @@ public interface ContactRepo extends JpaRepository<Contact, String> {
     // custom query method
     @Query("SELECT c FROM Contact c WHERE c.user.id = :userId")
     List<Contact> findByUserId(@Param("userId") String userId);
+
+    Page<Contact> findByNameContainingAndUser(String name, User user, Pageable pageable); // findByNameContain ye name
+                                                                                          // same
+    // aisa hi hona
+    // chahiye findBy + Name(field name present in
+    // Contact entity)+Containing
+
+    Page<Contact> findByEmailContainingAndUser(String email, User user, Pageable pageable);
+
+    Page<Contact> findByPhoneContainingAndUser(String phone, User user, Pageable pageable);
+
 }

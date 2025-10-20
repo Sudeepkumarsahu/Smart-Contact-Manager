@@ -65,16 +65,33 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<Contact> search(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
-    }
-
-    @Override
     public Page<Contact> getByUser(User user, int page, int size, String sortBy, String direction) {
         Sort sort = direction.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         var pageable = PageRequest.of(page, size, sort);
         return contactRepo.findByUser(user, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByName(String name, int size, int page, String sortBy, String order, User user) {
+        // TODO Auto-generated method stub
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByNameContainingAndUser(name, user, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByEmail(String email, int size, int page, String sortBy, String order, User user) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByEmailContainingAndUser(email, user, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByPhoneNumber(String phoneNumber, int size, int page, String sortBy, String order,
+            User user) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size, sort);
+        return contactRepo.findByPhoneContainingAndUser(phoneNumber, user, pageable);
     }
 
 }
