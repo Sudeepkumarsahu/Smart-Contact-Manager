@@ -23,6 +23,9 @@
 
         <div class="contacts_container">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+<div th:replace="message :: messagebox"></div>
+
             <form
               th:object="${contactSearchForm}"
               th:action="@{'/user/contacts/search'}"
@@ -124,9 +127,18 @@
                   </td>
                   <td class="px-6 py-4">
                     <div>
-                      <a href="#">
+                      <!-- yaha se url creadte jarte hai phir ise handle karne ke liye methoda banayege -->
+                      <!-- <a 
+                      th:href="@{'/user/contacts/delete/'+*{contactId}}"
+                      >
                         <i class="fa-solid fa-trash w-5 h-5"></i>
-                      </a>
+                      </a> -->
+                      <button 
+                      th:onclick="deleteContact([[${c.contactId}]])"
+                      th:href="@{'/user/contacts/delete/'+*{contactId}}"
+                      >
+                        <i class="fa-solid fa-trash w-5 h-5"></i>
+                      </button>
                       <a href="">
                         <i class="fa-solid fa-pen w-5 h-5"></i>
                       </a>

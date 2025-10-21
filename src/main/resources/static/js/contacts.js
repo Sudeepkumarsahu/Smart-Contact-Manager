@@ -1,5 +1,5 @@
 console.log("contact.js loaded");
-
+const baseURL = "http://localhost:8081";
 const viewContactModel = document.getElementById('view_contact_model');
 
 // options with default values
@@ -39,7 +39,7 @@ function closeContactModal() {
 async function loadContactData(id) {
     console.log("Contact ID:", id);
     try {
-        const data = await (await fetch(`http://localhost:8081/api/contacts/${id}`)).json();
+        const data = await (await fetch(`${baseURL}/api/contacts/${id}`)).json();
         console.log(data);
         document.querySelector("#contact_name").innerHTML = data.name;
         document.getElementById("contact_email").innerHTML = data.email;
@@ -52,7 +52,8 @@ async function loadContactData(id) {
             contactFavorite.innerHTML =
                 "<i class='fas fa-star text-yellow-400'></i><i class='fas fa-star text-yellow-400'></i><i class='fas fa-star text-yellow-400'></i><i class='fas fa-star text-yellow-400'></i><i class='fas fa-star text-yellow-400'></i>";
         } else {
-            contactFavorite.innerHTML = "Not Favorite Contact";
+            contactFavori
+            te.innerHTML = "Not Favorite Contact";
         }
         document.querySelector("#contact_website").href = data.websiteLink;
         document.querySelector("#contact_website").innerHTML = data.websiteLink;
@@ -63,7 +64,49 @@ async function loadContactData(id) {
         console.log(error);
 
     }
-
 }
+    async function deleteContact(id) {
+        console.log(id);
+        
+        const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: "bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700",
+  cancelButton: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+  },
+  buttonsStyling: false
+});
+swalWithBootstrapButtons.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonText: "Yes, delete it!",
+  cancelButtonText: "No, cancel!",
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+    swalWithBootstrapButtons.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+
+    const url = `${baseURL}/user/contacts/delete/`+id;
+    window.location.replace(url);
+    
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire({
+      title: "Cancelled",
+      text: "Your imaginary file is safe :)",
+      icon: "error"
+    });
+  }
+});
+        
+    }
+
 
 
