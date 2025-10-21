@@ -23,8 +23,7 @@
 
         <div class="contacts_container">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-
-<div th:replace="message :: messagebox"></div>
+            <div th:replace="message :: messagebox"></div>
 
             <form
               th:object="${contactSearchForm}"
@@ -128,21 +127,35 @@
                   <td class="px-6 py-4">
                     <div>
                       <!-- yaha se url creadte jarte hai phir ise handle karne ke liye methoda banayege -->
-                      <!-- <a 
-                      th:href="@{'/user/contacts/delete/'+*{contactId}}"
-                      >
-                        <i class="fa-solid fa-trash w-5 h-5"></i>
-                      </a> -->
-                      <button 
-                      th:onclick="deleteContact([[${c.contactId}]])"
-                      th:href="@{'/user/contacts/delete/'+*{contactId}}"
+                    
+
+                      <!-- delete contact  -->
+                      <button
+                        th:onclick="deleteContact([[${c.contactId}]])"
+                        th:href="@{'/user/contacts/delete/'+*{contactId}}"
                       >
                         <i class="fa-solid fa-trash w-5 h-5"></i>
                       </button>
-                      <a href="">
+
+
+
+                      <!-- update contact  -->
+                      <a 
+                   th:href="@{'/user/contacts/view/'+*{contactId}}"
+                      
+                      >
                         <i class="fa-solid fa-pen w-5 h-5"></i>
                       </a>
-                     <button class="cursor-pointer" type="button" th:attr="data-id=${c.contactId}" onclick="loadContactData(this.getAttribute('data-id'))"> <i class="fa-solid fa-eye w-5 h-5"></i> </button>
+
+                      <!-- view contact  -->
+                      <button
+                        class="cursor-pointer"
+                        type="button"
+                        th:attr="data-id=${c.contactId}"
+                        onclick="loadContactData(this.getAttribute('data-id'))"
+                      >
+                        <i class="fa-solid fa-eye w-5 h-5"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
