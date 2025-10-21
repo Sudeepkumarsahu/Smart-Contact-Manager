@@ -3,6 +3,8 @@ package com.scm.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +41,7 @@ public class Contact {
     private String cloudinaryImagePublicId;
     // private List<String> socialMediaLinks = new ArrayList<>();
     @ManyToOne
+    @JsonIgnore
     private User user; // User who created this contact
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

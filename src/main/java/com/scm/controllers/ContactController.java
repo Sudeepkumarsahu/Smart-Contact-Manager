@@ -164,6 +164,7 @@ public class ContactController {
                     direction, user);
 
         }
+
         logger.info("pageContact {}", pageContact);
         model.addAttribute("contactSearchForm", contactSearchForm);
         model.addAttribute("pageContact", pageContact);
