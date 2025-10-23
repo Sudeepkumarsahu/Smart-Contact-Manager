@@ -1,28 +1,16 @@
 package com.scm.config;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
 import com.scm.services.implementations.SecurityCustomUserDetailService;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -32,6 +20,9 @@ public class SecurityConfig {
     @Autowired
     private QAuthAuthenticationSuccessHandler handler;
     // configuration of authentication provider for spring security
+
+    @Autowired
+    private AuthFailureHandler authFailureHandler;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -63,11 +54,13 @@ public class SecurityConfig {
         httpSecurity.formLogin(formLogin -> {
             formLogin.loginPage("/login")
                     .loginProcessingUrl("/authenticate")
-                    .successForwardUrl("/user/profile")
+                    .defaultSuccessUrl("/user/profile", true)
+                    // .successForwardUrl("/user/profile")
                     // .failureForwardUrl("/login?error=true") // if use then postmapping is needed
                     // in controller for login page
                     .usernameParameter("email") // username
                     .passwordParameter("password");
+
             // .failureHandler(new AuthenticationFailureHandler() {
             // @Override
             // public void onAuthenticationFailure(HttpServletRequest request,
@@ -88,6 +81,9 @@ public class SecurityConfig {
             // 'onAuthenticationSuccess'");
             // }
             // });
+
+            formLogin.failureHandler(authFailureHandler);
+
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
@@ -101,6 +97,7 @@ public class SecurityConfig {
             logoutForm.logoutSuccessUrl("/login?logout=true");
         });
         return httpSecurity.build();
+
     }
 
     @Bean

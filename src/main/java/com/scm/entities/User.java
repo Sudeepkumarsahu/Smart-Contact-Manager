@@ -30,68 +30,74 @@ import lombok.Setter;
 
 @Entity(name = "user")
 @Table(name = "users")
-//lombok annotations
+// lombok annotations
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User implements UserDetails{
-    @Id  // primary key annotation
-    private String userId;
-    @Column(name = "user_name",nullable = false)
-    private String name;
-    @Column( nullable = false, unique = true)  // unique constraint annotation for email column
-    private String email;
-    @Getter(value = AccessLevel.NONE)
-    private String password;
-    private String phoneNumber;
-    // @Column(length = 10000)  // not working beacause of SQL length limit
-    @Lob   //for storing large text columns
-    @Column(columnDefinition = "TEXT")
-    private String about;
-    // @Column(length = 10000)
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String profilePicture;
-    @Getter(value = AccessLevel.NONE)
-    private boolean enabled = true;
-    private boolean emailVarified = false;
-    private boolean phoneVarified = false;
+public class User implements UserDetails {
+   @Id // primary key annotation
+   private String userId;
+   @Column(name = "user_name", nullable = false)
+   private String name;
+   @Column(nullable = false, unique = true) // unique constraint annotation for email column
+   private String email;
+   @Getter(value = AccessLevel.NONE)
+   private String password;
+   private String phoneNumber;
+   // @Column(length = 10000) // not working beacause of SQL length limit
+   @Lob // for storing large text columns
+   @Column(columnDefinition = "TEXT")
+   private String about;
+   // @Column(length = 10000)
+   @Lob
+   @Column(columnDefinition = "TEXT")
+   private String profilePicture;
+   @Getter(value = AccessLevel.NONE)
+   private boolean enabled = false;
+   private boolean emailVarified = false;
+   private boolean phoneVarified = false;
 
-    // self,google, facebook, linkedin, twitter, github, stackoverflow, etc.
-    @Enumerated(value = EnumType.STRING)
-    private Providers provider = Providers.SELF;
-    private String providerUserId;
+   // self,google, facebook, linkedin, twitter, github, stackoverflow, etc.
+   @Enumerated(value = EnumType.STRING)
+   private Providers provider = Providers.SELF;
+   private String providerUserId;
+   private String emailToken;
 
+   // add more field if needed
+   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true) // ek user ke
+                                                                                                          // pass
+                                                                                                          // multiple
+                                                                                                          // contacts
+                                                                                                          // hai
+   private List<Contact> contacts = new ArrayList<>();
+   @ElementCollection(fetch = FetchType.EAGER)
+   private List<String> roleList = new ArrayList<>();
 
-    //add more field if needed
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)  // ek user ke pass multiple contacts hai
-    private List<Contact> contacts = new ArrayList<>();
-@ElementCollection(fetch = FetchType.EAGER)
-private List<String> roleList = new ArrayList<>();
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        //list of roles[user,admin]
-        //collection of SimpleGrantedAuthority[roles{admin,user}]
-      Collection<SimpleGrantedAuthority> roles =  roleList.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
-    return roles;   
-    }
+   @Override
+   public Collection<? extends GrantedAuthority> getAuthorities() {
+      // list of roles[user,admin]
+      // collection of SimpleGrantedAuthority[roles{admin,user}]
+      Collection<SimpleGrantedAuthority> roles = roleList.stream().map(role -> new SimpleGrantedAuthority(role))
+            .collect(Collectors.toList());
+      return roles;
+   }
 
+   // for this project email id is username
+   @Override
+   public String getUsername() {
+      return this.email;
+   }
 
-    // for this project email id is username
-    @Override
-    public String getUsername() {
-       return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
+   @Override
+   public boolean isAccountNonExpired() {
       return true;
    }
+
    @Override
-   public boolean isAccountNonLocked(){
-    return true;
+   public boolean isAccountNonLocked() {
+      return true;
    }
 
    @Override
@@ -104,9 +110,8 @@ private List<String> roleList = new ArrayList<>();
       return this.enabled;
    }
 
-
    @Override
    public String getPassword() {
-    return this.password;
+      return this.password;
+   }
 }
-    }

@@ -112,6 +112,7 @@ public class PageController {
         user.setEmail(userForm.getEmail());
         user.setPassword(userForm.getPassword());
         user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEnabled(false);
         user.setProfilePicture(
                 "https://plus.unsplash.com/premium_photo-1739786996022-5ed5b56834e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YW5pbWF0aW9uJTIwYXZhdGFyfGVufDB8fDB8fHww");
         User savedUser = userService.saveUser(user);

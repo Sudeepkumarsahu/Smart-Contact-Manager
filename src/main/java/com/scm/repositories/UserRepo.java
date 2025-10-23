@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.scm.entities.User;
 
-
 @Repository
-public interface UserRepo extends JpaRepository<User,String>{
-Optional<User>findByEmail(String email); //iski implementation jpa kar dega
+public interface UserRepo extends JpaRepository<User, String> {
+    Optional<User> findByEmail(String email); // iski implementation jpa kar dega
+
+    Optional<User> findByEmailAndPassword(String email, String password);
+
+    Optional<User> findByEmailToken(String id);
+
 }
