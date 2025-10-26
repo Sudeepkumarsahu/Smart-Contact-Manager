@@ -31,9 +31,6 @@ import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.var;
-
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/user/contacts")
@@ -156,7 +153,7 @@ public class ContactController {
 
     ) {
         logger.info("field {} keyword {}", contactSearchForm.getField(), contactSearchForm.getValue());
-        var user = userService.getUserByEmail(Helper.getEmailOfloggedInUser(authentication));
+        User user = userService.getUserByEmail(Helper.getEmailOfloggedInUser(authentication));
         Page<Contact> pageContact = null;
         if (contactSearchForm.getField().equalsIgnoreCase("name")) {
             pageContact = contactService.searchByName(contactSearchForm.getValue(), size, page, sortBy, direction,
@@ -199,7 +196,7 @@ public class ContactController {
     public String updateContactView(
             @PathVariable("contactId") String contactId,
             Model model) {
-        var contact = contactService.getById(contactId);
+        Contact contact = contactService.getById(contactId);
         ContactForm contactForm = new ContactForm();
         contactForm.setName(contact.getName());
         contactForm.setEmail(contact.getEmail());
@@ -226,7 +223,7 @@ public class ContactController {
             return "user/update_contact_view";
         }
         // update the contact
-        var con = contactService.getById(contactId);
+        Contact con = contactService.getById(contactId);
         con.setContactId(contactId);
         con.setName(contactForm.getName());
         con.setEmail(contactForm.getEmail());
@@ -251,7 +248,7 @@ public class ContactController {
             System.out.println("file is empty");
         }
 
-        var updateCon = contactService.update(con);
+        Contact updateCon = contactService.update(con);
         logger.info("updated contact {}", updateCon);
         model.addAttribute("message", Message.builder().content("contactupdated").type(MessageType.green).build());
         return "redirect:/user/contacts/view/" + contactId;

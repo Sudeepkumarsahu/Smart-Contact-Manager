@@ -23,6 +23,5 @@ class ScmApplicationTests {
 
 		service.sendEmail("sahusudeepkumar3@gmail.com", "jus testing email service",
 				"this is scm project working on email service");
-
 	}
 }

@@ -40,11 +40,11 @@ public class QAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
         logger.info("QAuthAuthenticationSuccessHandler");
 
         // identify the provider(google,github or facebook)
-        var oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
+        OAuth2AuthenticationToken oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
         String authorizedClientRegistrationId = oauth2AuthenticationToken.getAuthorizedClientRegistrationId();
         logger.info(authorizedClientRegistrationId); // to check provider
 
-        var oauthUser = (DefaultOAuth2User) authentication.getPrincipal();
+        DefaultOAuth2User oauthUser = (DefaultOAuth2User) authentication.getPrincipal();
 
         oauthUser.getAttributes().forEach((key, value) -> {
             logger.info(key + " : " + value);
