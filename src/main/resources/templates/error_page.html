@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- import content from parent fragment  -->
+<html
+  lang="en"
+  th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}"
+>
+  <!-- using ~{::script} we can pass all script tag-->
+
+  <head>
+    <title>Home Page</title>
+  </head>
+  <body>
+    <div id="content" class="text-center mt-5 w-1/2 mx-auto">
+      <div th:replace="message :: messagebox"></div>
+      <a href="/login" class="mt-5 bg-gray-900 text-white px-3 py-2 rounded">
+        Login
+      </a>
+    </div>
+    <script>
+      console.log("home page script 1");
+    </script>
+  </body>
+</html>
