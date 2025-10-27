@@ -7,16 +7,32 @@
   <div
     class="h-full pt-14 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
   >
-    <a href="https://flowbite.com/" class="flex items-center ps-2.5 mb-5">
+    <a href="#" class="flex flex-col items-center ps-2.5 mb-8">
       <img
-        src="https://flowbite.com/docs/images/logo.svg"
-        class="h-6 me-3 sm:h-7"
-        alt="Flowbite Logo"
+        th:if="${loggedInUser.profilePicture != null}"
+        th:src="@{${loggedInUser.profilePicture}}"
+        class="h-16 w-16 rounded-full object-cover"
+        alt="User Profile"
+      />
+
+      <img
+        th:unless="${loggedInUser.profilePicture != null}"
+        src="https://imgs.search.brave.com/veKl8ET9WhanlBbihrKWBEkRfga_K4vtJ2gNSmAM1iE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/dmVjdG9yc3RvY2su/Y29tL2kvNTAwcC80/MS85MS9hdmF0YXIt/ZGVmYXVsdC11c2Vy/LXByb2ZpbGUtaWNv/bi1zaW1wbGUtZmxh/dC1ncmV5LXZlY3Rv/ci01NzIzNDE5MS5q/cGc"
+        class="h-16 w-16 rounded-full object-cover"
+        alt="Default Profile"
       />
       <span
-        class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-        >Welcome to SCM</span
+        class="text-gray-600 dark:text-gray-300 font-medium"
+        th:text="${loggedInUser.name}"
       >
+        Sudeep
+      </span>
+      <span
+        class="self-center text-lg font-semibold text-gray-800 dark:text-white"
+      >
+        Welcome to SCM
+      </span>
+      
     </a>
     <ul class="space-y-2 font-medium">
       <li>
@@ -80,7 +96,9 @@
               d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"
             />
           </svg> -->
-          <i class="fa-solid fa-plus shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+          <i
+            class="fa-solid fa-plus shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+          ></i>
           <span class="flex-1 ms-3 whitespace-nowrap">Add Contact</span>
           <span
             class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300"
@@ -120,7 +138,7 @@
       </li>
       <li>
         <a
-           data-th-href="@{'/logout'} "
+          data-th-href="@{'/logout'} "
           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
           <svg
