@@ -14,8 +14,6 @@ import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repositories.ContactRepo;
 import com.scm.services.ContactService;
 
-import lombok.var;
-
 @Service
 public class ContactServiceImpl implements ContactService {
 

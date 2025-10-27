@@ -23,7 +23,6 @@ import com.scm.repositories.UserRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.var;
 
 @Component
 public class QAuthAuthenticationSuccessHandler implements AuthenticationSuccessHandler {

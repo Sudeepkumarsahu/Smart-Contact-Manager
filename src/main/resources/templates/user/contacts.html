@@ -25,46 +25,60 @@
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div th:replace="message :: messagebox"></div>
 
-            <form
-              th:object="${contactSearchForm}"
-              th:action="@{'/user/contacts/search'}"
+            <div
+              class="flex md:flex-row flex-col items-center px-4 justify-between bg-white dark:bg-gray-900"
             >
-              <div
-                class="flex flex-col md:flex-row flex-wrap items-center gap-3 pb-4 bg-white dark:bg-gray-900"
+              <form
+                th:object="${contactSearchForm}"
+                th:action="@{'/user/contacts/search'}"
               >
-                <!-- select box  -->
-                <div>
-                  <select
-                    th:field="*{field}"
-                    id="countries_disabled"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option selected value="">Select Field</option>
-                    <option value="name">Name</option>
-                    <option value="phone">Phone</option>
-                    <option value="email">Email</option>
-                  </select>
-                </div>
-                <label for="table-search" class="sr-only">Search</label>
-                <div class="relative w-80">
-                  <!-- 🧾 Search input -->
-                  <input
-                    th:field="*{value}"
-                    type="text"
-                    id="table-search-users"
-                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                    placeholder="Search for users"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  class="px-3 py-1.5 bg-blue-600 text-white rounded-full"
+                <div
+                  class="flex flex-col md:flex-row flex-wrap items-center gap-3 pb-4"
                 >
-                  Search
+                  <!-- select box  -->
+                  <div>
+                    <select
+                      th:field="*{field}"
+                      id="countries_disabled"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option selected value="">Select Field</option>
+                      <option value="name">Name</option>
+                      <option value="phone">Phone</option>
+                      <option value="email">Email</option>
+                    </select>
+                  </div>
+                  <label for="table-search" class="sr-only">Search</label>
+                  <div class="relative w-80">
+                    <!-- 🧾 Search input -->
+                    <input
+                      th:field="*{value}"
+                      type="text"
+                      id="table-search-users"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                      placeholder="Search for users"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="px-3 py-1.5 bg-blue-600 text-white rounded-full"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
+              <div>
+                <button
+                  type="button"
+                  onclick="exportData()"
+                  class="px-3 py-1.5 bg-green-600 text-white rounded-full"
+                >
+                  Export
                 </button>
               </div>
-            </form>
+            </div>
             <table
+              id="contact_table"
               th:if="${pageContact.totalElements>0}"
               class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
@@ -127,7 +141,6 @@
                   <td class="px-6 py-4">
                     <div>
                       <!-- yaha se url creadte jarte hai phir ise handle karne ke liye methoda banayege -->
-                    
 
                       <!-- delete contact  -->
                       <button
@@ -137,13 +150,8 @@
                         <i class="fa-solid fa-trash w-5 h-5"></i>
                       </button>
 
-
-
                       <!-- update contact  -->
-                      <a 
-                   th:href="@{'/user/contacts/view/'+*{contactId}}"
-                      
-                      >
+                      <a th:href="@{'/user/contacts/view/'+*{contactId}}">
                         <i class="fa-solid fa-pen w-5 h-5"></i>
                       </a>
 
@@ -207,9 +215,17 @@
         <div th:replace="user/contact_models :: contact"></div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js"></script>
     <script th:src="@{'/js/contacts.js'}"></script>
     <script>
-      console.log("this is Dashboard page");
+      function exportData() {
+        TableToExcel.convert(document.getElementById("contact_table"), {
+          name: "contacts.xlsx",
+          sheet: {
+            name: "Sheet 1",
+          },
+        });
+      }
     </script>
   </body>
 </html>
